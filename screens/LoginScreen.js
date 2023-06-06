@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import { colors } from "../config/theme";
 import { ThemeContext } from "../context/ThemeContext";
 import {
@@ -11,14 +11,33 @@ import {
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-
+import firebase from "../screens/firebase";
 import CustomButton from "../components/CustomButton";
 import InputField from "../components/InputField";
 
 const LoginScreen = ({ navigation }) => {
   const { theme } = useContext(ThemeContext);
   let activeColors = colors[theme.mode];
+  
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  const handleLogin = () => {
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Login successful
+        console.log("User logged in:", userCredential.user.email);
+        navigation.navigate("Footer");
+      })
+      .catch((error) => {
+        // Login failed
+        console.log("Login error:", error);
+        // You can show an error message to the user here
+      });
+  };
+  
   return (
     <SafeAreaView
       style={{
@@ -61,7 +80,9 @@ const LoginScreen = ({ navigation }) => {
               style={{ marginRight: 5 }}
             />
           }
-          keyboardType="email-address"
+          // Set the email state
+          value={email}
+          onChangeText={setEmail}
         />
 
         <InputField
@@ -77,13 +98,14 @@ const LoginScreen = ({ navigation }) => {
           inputType="password"
           fieldButtonLabel={"Forgot?"}
           fieldButtonFunction={() => {}}
+          // Set the password state
+          value={password}
+          onChangeText={setPassword}
         />
 
         <CustomButton
           label={"Login"}
-          onPress={() => {
-            navigation.navigate("Footer");
-          }}
+          onPress={handleLogin}
         />
 
         <Text

@@ -1,57 +1,37 @@
-import firebase from "firebase/app";
-import "firebase/auth";
-
-
 import React, { useState, useContext } from "react";
-import {
-  SafeAreaView,
-  ScrollView,
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-} from "react-native";
-import { colors } from "../config/theme";
-import { ThemeContext } from "../context/ThemeContext";
-
-import DatePicker from "react-native-date-picker";
-
-import InputField from "../components/InputField";
-
+import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, Image, TextInput } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { colors } from "../config/theme";
+import { ThemeContext } from "../context/ThemeContext";
+import firebase from "./firebase"; // Import the correct firebase package
 
+import InputField from "../components/InputField";
 import CustomButton from "../components/CustomButton";
 
 const RegisterScreen = ({ navigation }) => {
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
-  const [dobLabel, setDobLabel] = useState("Date of Birth");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const { theme } = useContext(ThemeContext);
-  let activeColors = colors[theme.mode];
+  const activeColors = colors[theme.mode];
 
-
-const handleSignup = () => {
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      // Signed in
-      var user = userCredential.user;
-      console.log(user.email);
-
-      // ...
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ..
-    });
-};
-
-
-
+  const handleSignup = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Signup successful
+        console.log("User registered:", userCredential.user.email);
+        navigation.navigate("Login");
+        // You can navigate to the login screen or perform any other action here
+      })
+      .catch((error) => {
+        // Signup failed
+        console.log("Signup error:", error);
+        // You can show an error message to the user here
+      });
+  };
 
   return (
     <SafeAreaView
@@ -170,7 +150,8 @@ const handleSignup = () => {
               style={{ marginRight: 5 }}
             />
           }
-          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
         />
 
         <InputField
@@ -184,6 +165,8 @@ const handleSignup = () => {
             />
           }
           inputType="password"
+          value={password}
+          onChangeText={setPassword}
         />
 
         <InputField
@@ -199,8 +182,7 @@ const handleSignup = () => {
           inputType="password"
         />
 
-    
-        <CustomButton label={"Register"} onPress={() => {handleSignup}} />
+        <CustomButton label={"Register"} email={email} password={password} onPress={handleSignup} />
 
         <View
           style={{
@@ -212,7 +194,6 @@ const handleSignup = () => {
           <Text style={{ color: activeColors.tint }}>Already registered? </Text>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text style={{ color: activeColors.accent, fontWeight: "700" }}>
-              {" "}
               Login
             </Text>
           </TouchableOpacity>

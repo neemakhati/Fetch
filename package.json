@@ -25,7 +25,7 @@
     "expo-constants": "^14.0.2",
     "expo-splash-screen": "^0.17.5",
     "expo-status-bar": "~1.4.0",
-    "firebase": "^8.2.3",
+    "firebase": "^8.10.1",
     "ml": "^6.0.0",
     "ml-matrix": "^6.10.4",
     "natural": "^6.5.0",

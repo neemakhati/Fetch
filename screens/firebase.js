@@ -1,28 +1,17 @@
-// Import the functions you need from the SDKs you need
-import * as firebase from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import firebase from "firebase/app";
+import "firebase/auth";
+import "firebase/firestore"; 
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAcIsa0emSA_b0cFrRUpDz8Mn33aL1m4q4",
-  authDomain: "events-network-cc384.firebaseapp.com",
-  projectId: "events-network-cc384",
-  storageBucket: "events-network-cc384.appspot.com",
-  messagingSenderId: "501953481776",
-  appId: "1:501953481776:web:fcfe153d78d9048294b1f5"
+  apiKey: "AIzaSyBKnm0Dsp3eLdR8HsYfhQyoNjvo3M_wi20",
+  authDomain: "users-e0d03.firebaseapp.com",
+  projectId: "users-e0d03",
+  storageBucket: "users-e0d03.appspot.com",
+  messagingSenderId: "241235006084",
+  appId: "1:241235006084:web:bf7052da684a0cb04768d1",
+  measurementId: "G-SGZW4M3H20"
 };
-
-let app;
-if(firebase.apps.length === 0)
-{
-    app = firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
 }
-else
-{
-    app = firebase.app();
-}
-
-const auth = firebase.auth();
-
-export { auth };
+export default firebase;

@@ -8,6 +8,8 @@ export default function InputField({
   icon,
   inputType,
   keyboardType,
+  value,
+  onChangeText,
   fieldButtonLabel,
   fieldButtonFunction,
 }) {
@@ -25,7 +27,7 @@ export default function InputField({
       }}
     >
       {icon}
-      {inputType == "password" ? (
+      {inputType === "password" ? (
         <TextInput
           placeholderTextColor={activeColors.text}
           placeholder={label}
@@ -33,6 +35,8 @@ export default function InputField({
           keyboardType={keyboardType}
           style={{ flex: 1, paddingVertical: 0, color: activeColors.tint }}
           secureTextEntry={true}
+          value={value}
+          onChangeText={onChangeText}
         />
       ) : (
         <TextInput
@@ -41,6 +45,8 @@ export default function InputField({
           keyboardAppearance={activeColors.primary}
           keyboardType={keyboardType}
           style={{ flex: 1, paddingVertical: 0, color: activeColors.tint }}
+          value={value}
+          onChangeText={onChangeText}
         />
       )}
       <TouchableOpacity onPress={fieldButtonFunction}>
