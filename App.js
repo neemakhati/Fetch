@@ -19,7 +19,7 @@ import store from './screens/store';
 //theme of the app. It will be used in
 //all the screens of the app.
 import { ThemeContext } from "./context/ThemeContext";
-
+import RecommendedScreen from "./screens/Recommended";
 //creating simple splash screen
 SplashScreen.preventAutoHideAsync();
 
@@ -107,6 +107,7 @@ const App = () => {
         <Stack.Screen name="RecommendationScreen" component={RecommendationScreen} options={{headerShown:false }} />
         <Stack.Screen name="DisplayScreen" component={DisplayScreen} />
         <Stack.Screen name="MapScreen" component={MapScreen} />
+        <Stack.Screen name="RecommendedScreen" component={RecommendedScreen} options={{headerShown:false }} />
         <Stack.Screen name="WorkshopScreen" component={WorkshopScreen} options={{headerShown:false }} />
         
 

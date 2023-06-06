@@ -5,8 +5,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Card } from 'react-native-paper'; // Import Card component from Material UI
 import { ThemeContext } from '../context/ThemeContext'; // Import ThemeContext
 import { addToFavorites } from './actions';
-import { useDispatch } from 'react-redux';
 import { fetchEvents } from './api';
+import { useDispatch } from 'react-redux';
 
 const HomeScreen = () => {
   const [randomWorkshops, setRandomWorkshops] = useState([]);
@@ -14,6 +14,7 @@ const HomeScreen = () => {
   const navigation = useNavigation();
   const { theme } = useContext(ThemeContext); // Access the current theme from the context
   const dispatch = useDispatch();
+
   useEffect(() => {
     getRandomWorkshops();
   }, []);
@@ -41,6 +42,10 @@ const HomeScreen = () => {
     }
   };
 
+  const isWorkshopSelected = (workshop) => {
+    return selectedWorkshops.includes(workshop);
+  };
+  
   const getRandomIndices = (max, count) => {
     const indices = [];
     while (indices.length < count) {
@@ -50,10 +55,6 @@ const HomeScreen = () => {
       }
     }
     return indices;
-  };
-
-  const isWorkshopSelected = (workshop) => {
-    return selectedWorkshops.includes(workshop);
   };
 
   const handleFavoriteWorkshop = (workshop) => {

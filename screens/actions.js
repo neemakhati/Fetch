@@ -7,12 +7,4 @@ export const addToFavorites = (workshop) => {
     };
   };
   
-  // actions.js
-
-export const addWorkshop = (workshop) => {
-    return {
-      type: 'ADD_WORKSHOP',
-      payload: workshop,
-    };
-  };
   

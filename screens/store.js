@@ -1,26 +1,12 @@
 // store.js
 
-// store.js
+import { createStore, combineReducers } from 'redux';
+import { favoritesReducer } from './reducers';
 
-import { createStore } from 'redux';
+const rootReducer = combineReducers({
+  favorites: favoritesReducer,
+});
 
-const initialState = {
-  favorites: [],
-};
-
-// Reducer function
-const favoritesReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'ADD_WORKSHOP':
-      return {
-        ...state,
-        favorites: [...state.favorites, action.payload],
-      };
-    default:
-      return state;
-  }
-};
-
-const store = createStore(favoritesReducer);
+const store = createStore(rootReducer);
 
 export default store;
